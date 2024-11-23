@@ -1,0 +1,32 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  sqlServerName: 'NewSqlServer'
+  databaseName: 'my_assignment_db'
+  sqlUser: 'localhost'
+  sqlPassword: 'Harish@123'
+
+steps:
+- task: SqlAzureDacpacDeployment@1
+  displayName: 'Run create_table.sql'
+  inputs:
+    azureSubscription: 'MyAzureSubscription'
+    serverName: '$(sqlServerName)'
+    databaseName: '$(databaseName)'
+    sqlUsername: '$(sqlUser)'
+    sqlPassword: '$(sqlPassword)'
+    sqlFile: 'create_table.sql'
+
+- task: SqlAzureDacpacDeployment@1
+  displayName: 'Run updated_table.sql'
+  inputs:
+    azureSubscription: 'MyAzureSubscription'
+    serverName: '$(sqlServerName)'
+    databaseName: '$(databaseName)'
+    sqlUsername: '$(sqlUser)'
+    sqlPassword: '$(sqlPassword)'
+    sqlFile: 'updated_table.sql'
